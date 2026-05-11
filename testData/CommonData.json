@@ -1,0 +1,8 @@
+ {
+    "BASE_URL": "https://rahulshettyacademy.com/client/#/auth/login",
+    "USERNAME" : "prachtitest09@gmail.com",
+    "PASSWORD" : "Test@123",
+    "INVALID_USERNAME" : "testUser@yopmail.com"
+
+
+}

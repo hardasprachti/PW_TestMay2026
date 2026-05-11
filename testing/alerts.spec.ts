@@ -13,7 +13,7 @@ test("handling alerts" , async ({page}) => {
     })
     await page.locator('#alertButton').click()
 
-    await page.locator("#confirmButton"vss).click()
+    await page.locator("#confirmButton").click()
     await expect(page.locator("#confirmResult")).toHaveText("You selected Cancel")
     
     await page.locator('#promptButton').click()
