@@ -57,4 +57,4 @@
 //tagname/ancestor::tagname
 
 //to write locators using css or xpath we use method page.locator(css/xpath vaslue)
-page.locator("#Login")
+//page.locator("#Login")
