@@ -1,7 +1,7 @@
 import { Locator, Page } from "playwright"
 
 
-export class RegistrationPage{
+class RegistrationPage{
 
     page:Page
     pageHeader:Locator
