@@ -18,6 +18,15 @@ export class CommonUtility {
       } finally {
         await pool.end();
       }
+
+   }
+
+   static async convertExcelToJSON(path:string){
+      const XLSX = require("xlsx");
+      const fs = require("fs");
+
+      const workbook = XLSX.read
+
    }
 }
 
