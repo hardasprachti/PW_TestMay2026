@@ -1,0 +1,15 @@
+# Use the official Playwright image from Microsoft
+FROM mcr.microsoft.com/playwright:v1.49.0-noble
+
+# Set the working directory inside the container
+WORKDIR /app
+
+# Copy package files and install dependencies
+COPY package*.json ./
+RUN npm ci
+
+# Copy the rest of your project files
+COPY . .
+
+# Command to run your tests (you can override this in Jenkins)
+CMD ["npx", "playwright", "test"]
