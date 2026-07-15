@@ -3,6 +3,8 @@ import { CommonUtility } from "../../utils/CommonUtility";
 import { test, expect } from '@playwright/test';
 
 test("Verify database connection and result", async ({ page }) => {
+
+  test.skip(!!process.env.CI, 'This test runs only on local machines.');
   const result = await CommonUtility.connectDatabase("select * from practice.dept");
   console.log(result);
   console.log(result[0].dname);    
