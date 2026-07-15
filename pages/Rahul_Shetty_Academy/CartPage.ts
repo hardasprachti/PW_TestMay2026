@@ -25,7 +25,7 @@ export class CartPage {
 
     async isCartProductAvailable() {
 
-        const availableStatus = await this.cartProducts.isVisible({ timeout: 2000 })
+        const availableStatus = await this.cartProducts.first().isVisible({ timeout: 2000 })
         return availableStatus
 
     }
@@ -42,7 +42,7 @@ export class CartPage {
         for (let i = 0; i <= countOfProducts; i++) {
             const pname = await this.cartProducts.locator(".cartSection h3").nth(i).textContent()
             if (product == pname) {
-                await     this.cartProducts.locator(".cartSection").nth(i).locator("button").nth(2).click()
+                await  this.cartProducts.locator(".cartSection").nth(i).locator("button").nth(2).click()
             }
         }
 

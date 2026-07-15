@@ -4,10 +4,12 @@ import { test, expect } from '@playwright/test';
 
 test("Verify database connection and result", async ({ page }) => {
 
-  test.skip(!!process.env.CI, 'This test runs only on local machines.');
+  test.skip(!!process.env.CI, 'This test runs only on local machines.'); //to skip a test in ci/cd execution
   const result = await CommonUtility.connectDatabase("select * from practice.dept");
   console.log(result);
   console.log(result[0].dname);    
   expect(Array.isArray(result)).toBe(true);
   expect((result as unknown[]).length).toBeGreaterThan(0);
 });
+
+

@@ -14,6 +14,7 @@ export class DashboardPage{
     product_price: Locator
     added_to_cart_Pop_Up: Locator
     successMessage: Locator
+    searchBox:Locator
 
     constructor(page:Page){
         this.page = page
@@ -27,6 +28,7 @@ export class DashboardPage{
         this.product_price = this.page.locator("div.container div.col-lg-4 div div.d-flex")
         this.added_to_cart_Pop_Up = this.page.locator("#toast-container")
         this.successMessage = this.page.locator(".toast-message")
+        this.searchBox = this.page.getByPlaceholder("search").last()
     }
 
     async navigateOrdersPage(){
@@ -81,19 +83,30 @@ export class DashboardPage{
 
     async getProductName(name:String){
         const productCount = await this.products.count();
-        for(let i=1;i<=productCount; i++){
+       let product_list:string[] = []
+        for(let i=0;i<=productCount; i++){
             const productLocator = await this.products.nth(i)
-            const displayedName = await productLocator.locator("h5").textContent()
-            if(displayedName == name){
-                await  productLocator.textContent()
+            await productLocator.locator("h5").waitFor({state:'visible',"timeout":4000})
+            const displayedName = productLocator.locator("h5").textContent()
+            if(displayedName == name && displayedName != null && displayedName != undefined){
+              // const display_name =  await  productLocator.textContent()
+                product_list.push(displayedName)
                  
             }
+            return product_list
 
         }
     }
 
 
+async searchProduct(productName:string){
 
+    await this.searchBox.fill(productName)
+    await this.searchBox.press("Enter")
+   // await this.getProductName(productName)
+    
+
+}
 
 
 }
