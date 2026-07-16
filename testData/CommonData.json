@@ -3,7 +3,8 @@
     "USERNAME" : "prachtitest09@gmail.com",
     "PASSWORD" : "Test@123",
     "INVALID_USERNAME" : "testUser@yopmail.com",
-    "DASHBOARD_LINK": "https://rahulshettyacademy.com/client/#/dashboard/dash"
+    "DASHBOARD_LINK": "https://rahulshettyacademy.com/client/#/dashboard/dash",
+    "CART_LINK":"https://rahulshettyacademy.com/client/#/dashboard/cart"
 
 
 }

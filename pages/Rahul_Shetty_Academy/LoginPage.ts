@@ -11,7 +11,8 @@ export class LoginPage{
     forgotPswd: Locator
     invalidCredErrorMsg : Locator
     RequiredEmailMsg : Locator
- RequiredPasswordMsg : Locator
+    RequiredPasswordMsg : Locator
+    signOut:Locator
     
   constructor(page:Page){
 
@@ -24,6 +25,7 @@ export class LoginPage{
     this.invalidCredErrorMsg = this.page.locator(".toast-container")
     this.RequiredEmailMsg = this.page.getByText("*Email is required")
     this.RequiredPasswordMsg = this.page.getByText("*Password is required")
+    this.signOut = this.page.locator(".fa-sign-out")
  
  
   }
@@ -49,6 +51,8 @@ export class LoginPage{
     await this.forgotPswd.click()
   }
 
-
+ async logOut(){
+  await this.signOut.click()
+ }
 
 }

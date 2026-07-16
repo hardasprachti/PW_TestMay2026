@@ -10,6 +10,7 @@ export class CartPage {
     buyNowButton: Locator
     checkoutbutton: Locator
     cartProducts: Locator
+    emptyCart_message:Locator
 
     constructor(page: Page) {
         this.page = page
@@ -19,6 +20,7 @@ export class CartPage {
         this.buyNowButton = this.page.getByRole("button", { name: "Buy Now" })
         this.cartPageHeader = this.page.getByText("My Cart")
         this.checkoutbutton = this.page.getByRole("button", { name: "Checkout" })
+        this.emptyCart_message = this.page.locator("h1").nth(2)
 
     }
 
@@ -37,16 +39,24 @@ export class CartPage {
 
         }
     }
-    async deleteProduct(product: String) {
+    async deleteProduct(productName: String) {
         const countOfProducts = await this.cartProducts.count()
-        for (let i = 0; i <= countOfProducts; i++) {
+        for (let i = 0; i < countOfProducts; i++) {
             const pname = await this.cartProducts.locator(".cartSection h3").nth(i).textContent()
-            if (product == pname) {
-                await  this.cartProducts.locator(".cartSection").nth(i).locator("button").nth(2).click()
+            if (productName.trim() == pname) {
+                const current_product = await this.cartProducts.nth(i) //make sure to focus on current product
+               const price=  await current_product.locator(".prodTotal").textContent()
+               console.log("Price of the product" + price)
+                await  current_product.locator(".btn-danger").click()
+                break //after deleting break the loop to not get an error
             }
         }
 
     }
 
+    async getEmptyCartMessage(){
+        const message = await this.emptyCart_message.textContent()
+        return message
+    }
 
 }
