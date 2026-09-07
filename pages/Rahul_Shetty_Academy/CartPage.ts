@@ -1,9 +1,10 @@
 import { Locator, Page } from "playwright"
+import { BasePage } from "./base.page"
 
 
-export class CartPage {
+export class CartPage extends BasePage{
 
-    page: Page
+   
     cartPageHeader: Locator
     cartProductName: Locator
     cartPrice: Locator
@@ -14,7 +15,7 @@ export class CartPage {
 
 
     constructor(page: Page) {
-        this.page = page
+       super(page)
         this.cartProducts = this.page.locator(".cart ul")
         this.cartPrice = this.page.locator(".cartSection p").nth(2)
         this.cartProductName = this.page.locator(".cartSection h3")
@@ -39,6 +40,7 @@ export class CartPage {
             if (pname?.toLowerCase() == productName.toLowerCase()) {
 
             }
+         
         }
     async deleteProduct(productName: String) {
             const countOfProducts = await this.cartProducts.count()
@@ -48,7 +50,7 @@ export class CartPage {
                     const current_product = await this.cartProducts.nth(i) //make sure to focus on current product
                     const price = await current_product.locator(".prodTotal").textContent()
                     console.log("Price of the product" + price)
-                    await current_product.locator(".btn-danger").click()
+                    await  this.safeClick(current_product.locator(".btn-danger"))
                     break //after deleting break the loop to not get an error
                 }
             }

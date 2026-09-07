@@ -20,7 +20,7 @@ export default defineConfig({
   /* Retry on CI only */
   retries: process.env.CI ? 2 : 0,
   /* Opt out of parallel tests on CI. */
-  workers: process.env.CI ? 1 : 2,
+  workers: process.env.CI ? 1 : 2, // how much threads can it spun on single machine? can we assign this to different virtual machines and how?
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
   reporter: "html",
   // reporter: [['html'],['allure-playwright', { outputFolder: 'allure-results' }]],
@@ -33,7 +33,10 @@ export default defineConfig({
     trace: 'on',
     screenshot: 'on',    
     video: 'on',
-    headless: false
+    headless: false,
+    launchOptions: {
+      args: ['--start-maximized'],
+    },
   },
 
   /* Configure projects for major browsers */

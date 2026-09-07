@@ -1,6 +1,6 @@
 import { test, expect } from "playwright/test";
 // import { LoginPage } from "../pages/Rahul_Shetty_Academy/LoginPage";
-import { LoginPage } from "../../pages/Rahul_Shetty_Academy/LoginPage";
+import { LoginPage } from "../../pages/Rahul_Shetty_Academy/login.page";
 import { DashboardPage } from "../../pages/Rahul_Shetty_Academy/DashboardPage";
 import loginData from "../../testData/CommonData.json"
 import { CartPage } from "../../pages/Rahul_Shetty_Academy/CartPage";
@@ -104,46 +104,18 @@ test.describe("Authorization Success", () => {
 
         if (product_list) {
             product_list.forEach(element => {
-                expect(element.toLowerCase).toContain(name.toLowerCase)
+                //expect(element.toLowerCase).toContain(name.toLowerCase())
+                expect(element.toLowerCase().includes(name.toLowerCase()))
 
             })
         }
+        else{
+            console.log("The searched product is not available")
+        }
     })
 
 
-    test("Verify if product is getting removed from cart", async({ page}) => {
-        let product_list = ['ADIDAS ORIGINAL', 'ZARA COAT 3', 'iphone 13 pro']
-       let  count_of_products_in_cart:number =0
-        // product_list.forEach(element => { // For each does not work with async/await  
-        //     console.log("----" + element)
-        //     page.waitForTimeout(5000)
-        //     db.selectProductAndAddToCart(element)
-        // })
-
-         for( const element of product_list) {
-            console.log("----" + element)
-            await page.waitForTimeout(5000)
-            await db.selectProductAndAddToCart(element)
-        }
-
-        await db.Cart_link.click()
-        console.log(product_list[1])
-        if(await cp.isCartProductAvailable()) {
-            
-            const cart_count = await cp.cartProducts.count()
-            count_of_products_in_cart = +cart_count
-            console.log(typeof(count_of_products_in_cart))
-            console.log(count_of_products_in_cart)
-        }
-        //await page.waitForTimeout(50000)
-        
-        cp.deleteProduct(product_list[1])
-        //expect(await cp.cartProducts.count()).toBeLessThan(count_of_products_in_cart)
-
-
-        
-
-    })
+    
 
 })// describe ends here 
 

@@ -1,8 +1,9 @@
 import { test, expect, Page, Locator } from '@playwright/test';
 //import { LoginPage } from '../../pages/Rahul_Shetty_LoginPage';
-import { LoginPage } from '../../pages/Rahul_Shetty_Academy/LoginPage';
+import { LoginPage } from '../../pages/Rahul_Shetty_Academy/login.page';
 import { DashboardPage } from '../../pages/Rahul_Shetty_Academy/DashboardPage';
 import loginData from '../../testData/CommonData.json';
+import login from '../../utils/myfixtures'
 
 // class DashboardPage {
 //     readonly page: Page
@@ -66,6 +67,7 @@ test("Verify logout scenario", async ({ page }) => {
     await lp.loginToApplication(loginData.USERNAME, loginData.PASSWORD)
     db = new DashboardPage(page)
     await expect(db.Logout_button).toBeVisible()
+    await page.waitForSelector(db.signOut, { state: 'visible' })
     await db.logOut()
     await expect(lp.usernameTxt).toBeVisible()
 
@@ -81,6 +83,13 @@ test("verify Blank data", async ({ page }) => {
     await lp.loginToApplication(loginData.USERNAME, "")
     await lp.RequiredPasswordMsg.waitFor({ state: "visible" })
     await expect(lp.RequiredPasswordMsg).toHaveText("*Password is required")
+
+
+})
+
+test("Verify if password is masked", async ({login}) => {
+    
+
 
 
 })
