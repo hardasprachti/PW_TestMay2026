@@ -6,8 +6,7 @@ import { CartPage } from '../../pages/Rahul_Shetty_Academy/CartPage'
 import { test, expect } from '../../utils/myfixtures'
 import data from '../../testData/CommonData.json'
 import { DashboardPage } from '../../pages/Rahul_Shetty_Academy/DashboardPage'
-import { payment } from '../../pages/Rahul_Shetty_Academy/PaymentPage'
-
+import { PaymentPage } from "../../pages/Rahul_Shetty_Academy/PaymentPage"
 
 
 

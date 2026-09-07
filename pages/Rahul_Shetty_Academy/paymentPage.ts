@@ -1,7 +1,7 @@
 import { Locator, Page, expect } from "@playwright/test";
 import { BasePage } from "./base.page";
 
-export class Paymentpage extends BasePage {
+export class PaymentPage extends BasePage {
 
     
     countryDropDown: Locator
