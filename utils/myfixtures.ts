@@ -3,10 +3,11 @@ import { test as base, Page } from "@playwright/test"
 import loginData from '../testData/CommonData.json'
 
 //Importing all the classes using bulk import 
-import { LoginPage } from "../pages/Rahul_Shetty_Academy/LoginPage"
+import { LoginPage } from "../pages/Rahul_Shetty_Academy/login.page"
 import { DashboardPage } from "../pages/Rahul_Shetty_Academy/DashboardPage"
 import { CartPage } from "../pages/Rahul_Shetty_Academy/CartPage"
-import { Paymentpage } from "../pages/Rahul_Shetty_Academy/PaymentPage"
+import { Paymentpage } from "../pages/Rahul_Shetty_Academy/Paymentpage"
+import { OrderPage } from "../pages/Rahul_Shetty_Academy/OrderPage"
 export { expect } from '@playwright/test'
 
 // Define type for every page object
@@ -17,6 +18,7 @@ type MyPagesFixture = {
     dashboardPage: DashboardPage
     cartPage: CartPage
     paymentPage:Paymentpage
+    orderPage:OrderPage
 };
 
 //Extend base test to instantiate all the classes cleanly
@@ -49,6 +51,11 @@ export const test = base.extend<MyPagesFixture>({
 
     } ,  
     
+    orderPage: async ({page}, use) =>{
+        await use(new OrderPage((page)))
+    },
+
+
     loggedInPage: async ({ page }, use) => {
         login = new LoginPage(page);
         dashboardPage = new DashboardPage(page)
@@ -57,7 +64,7 @@ export const test = base.extend<MyPagesFixture>({
         await dashboardPage.products.first().waitFor({ state: "visible" });
         await use(page);
 
-       // await login.logOut()
+        //await dashboardPage.logOut()
 
     }
 })

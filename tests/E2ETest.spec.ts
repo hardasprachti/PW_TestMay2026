@@ -3,7 +3,7 @@ import {test, expect} from '@playwright/test'
 import data from  '../testData/CommonData.json'
 
 
-let productName = "iphone 13 pro"
+let productName = "ZARA COAT 3"
 let email = data.USERNAME
 let country = "India"
 

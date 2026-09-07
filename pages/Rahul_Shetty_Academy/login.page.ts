@@ -1,9 +1,10 @@
 import { Locator, Page } from "playwright";
+import { BasePage } from "./base.page";
 
 
-export class LoginPage {
+export class LoginPage extends BasePage {
 
-  page: Page
+  
   usernameTxt: Locator
   passwordTxt: Locator
   submitBtn: Locator
@@ -17,7 +18,7 @@ export class LoginPage {
 
   constructor(page: Page) {
 
-    this.page = page
+    super(page)
     this.usernameTxt = this.page.locator("#userEmail")
     this.passwordTxt = this.page.locator("#userPassword")
     this.submitBtn = this.page.locator("#login").first()
@@ -26,8 +27,8 @@ export class LoginPage {
     this.invalidCredErrorMsg = this.page.locator(".toast-container")
     this.RequiredEmailMsg = this.page.getByText("*Email is required")
     this.RequiredPasswordMsg = this.page.getByText("*Password is required")
-    this.signOut = this.page.getByText(" Sign Out ")
-    this.signOutButtonUnhiddden = this.page.locator(".btn-custom").nth(4)
+    //this.signOut = this.page.getByText(" Sign Out ")
+    //this.signOutButtonUnhiddden = this.page.getByRole('button', { name: 'Sign Out' })
 
 
   }
@@ -37,7 +38,7 @@ export class LoginPage {
   async loginToApplication(username: string, password: string) {
     await this.usernameTxt.fill(username)
     await this.passwordTxt.fill(password)
-    await this.submitBtn.click()
+    await this.safeClick(this.submitBtn)
 
   }
 
@@ -52,15 +53,16 @@ export class LoginPage {
     await this.forgotPswd.click()
   }
 
-  async logOut() {
+  /*async logOut() {
     await this.signOut.isVisible()
     await this.signOut.highlight()
     console.log("Sign out checking.,.....")
     //await this.signOut.click()
+    //await this.page.getByRole('button', { name: 'Sign Out' }).click()
     await this.signOutButtonUnhiddden.isVisible()
     await this.signOutButtonUnhiddden.highlight()
     await this.signOutButtonUnhiddden.click()
     
-  }
+  } */
 
 }

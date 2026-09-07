@@ -1,27 +1,28 @@
 import { Locator, Page, expect } from "@playwright/test";
+import { BasePage } from "./base.page";
 
-export class Paymentpage {
+export class Paymentpage extends BasePage {
 
-    page: Page
+    
     countryDropDown: Locator
     countryDD: Locator
     placeOrderbutton: Locator
     errorMsgForBlankCountry: Locator
     paymentpageTitle: Locator
-    countryDDResults: Locator
+    countryOptions: Locator
     emailInput: Locator
 
 
     constructor(page: Page) {
 
-        this.page = page
+        super(page)
         this.countryDD = this.page.getByPlaceholder("Select Country")
         this.placeOrderbutton = this.page.locator(".action__submit")
         this.errorMsgForBlankCountry = this.page.locator(".toast-title")
         this.paymentpageTitle = this.page.getByText(" Payment Method ")
         this.countryDropDown = this.page.locator("div.user__name input").last()
         this.emailInput = this.page.locator("div.user__name input").first()
-        this.countryDDResults = this.page.locator("section.ta-results button")
+        this.countryOptions = this.page.locator("section.ta-results button")
     }
 
 
@@ -44,28 +45,26 @@ export class Paymentpage {
     }
 
     async selectCountryDropDown(countryName: string) {
-      
 
-            await this.countryDropDown.clear()
-            await this.countryDropDown.pressSequentially(countryName.substring(0, 4))
-            await this.countryDDResults.first().isVisible()
-           // await this.countryDDResults.filter({ hasText: '${countryName}' }).click()
-             const count =  await this.countryDDResults.count()
-             for (let i= 0; i< count; i++){
-             const optionText = (await this.countryDDResults.nth(i).textContent())?.trim()
-              if(optionText === countryName)
-              {
-                  console.log(optionText)
-                  //console.log( await this.countryDDResults.nth(i).textContent())
-                  await this.countryDDResults.nth(i).click()
-                  return;
-              }
-             
+
+        await this.countryDropDown.clear()
+        await this.countryDropDown.pressSequentially(countryName.substring(0, 4))
+        await this.countryOptions.first().waitFor({state:'visible'})
+        //await this.countryOptions.filter({hasText:`${countryName}`}).click()
+
+        const country:string[]= await this.countryOptions.allTextContents()
+        console.log(country.length)
+        for(let i=0; i< country.length; i++){
+            console.log(country[i].trim())
+            console.log(await this.countryOptions.nth(i).textContent())
+            console.log("===================")
+            console.log(country[i].trim() === countryName)
+            if(country[i].trim().toLowerCase() === countryName.toLowerCase()){
+                await this.safeClick(this.countryOptions.nth(i))
+                break
+            }
         }
-        //const value = await this.countryDropDown.inputValue()
-        //console.log("Value selected is -------" + value)
-       // return value
-        //throw new Error(`Country '${countryName}' was not found in the dropdown.`);
+        //throw new Error(`Country ${countryName} was not found in the dropdown.`);
 
     }
 
