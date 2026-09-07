@@ -6,7 +6,8 @@ import loginData from '../testData/CommonData.json'
 import { LoginPage } from "../pages/Rahul_Shetty_Academy/login.page"
 import { DashboardPage } from "../pages/Rahul_Shetty_Academy/DashboardPage"
 import { CartPage } from "../pages/Rahul_Shetty_Academy/CartPage"
-import { Paymentpage } from "../pages/Rahul_Shetty_Academy/Paymentpage"
+//import { Paymentpage } from "../pages/Rahul_Shetty_Academy/Paymentpage"
+import { PaymentPage } from "../pages/Rahul_Shetty_Academy/PaymentPage"
 import { OrderPage } from "../pages/Rahul_Shetty_Academy/OrderPage"
 export { expect } from '@playwright/test'
 
